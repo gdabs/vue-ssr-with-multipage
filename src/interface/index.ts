@@ -1,5 +1,4 @@
-export interface IApiService {
-  index: () => Promise<any>
-}
-
-export * from './detail'
+export * from './config';
+export * from './interface';
+export * from './page-index';
+export * from './detail-index';

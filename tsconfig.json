@@ -8,7 +8,7 @@
     "allowJs": false, // 允许编译 javascript 文件
     "checkJs": false, // 报告 javascript 文件中的错误
     "jsx": "preserve", // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
-    "declaration":true, // 生成相应的 '.d.ts' 文件
+    "declaration": true, // 生成相应的 '.d.ts' 文件
     "sourceMap": true, // 生成相应的 '.map'文件
     // "outFile": "./",                       // 将输出文件合并为一个文件
     "outDir": "dist", // 指定输出目录
@@ -21,7 +21,7 @@
     "strict": false, // 启用所有严格类型检查选项
     // "noImplicitAny": false,                 // 在表达式和声明上有隐含的 any类型时报错
     "strictNullChecks": false, // 启用严格的 null 检查
-    "noImplicitThis": true,                // 当 this 表达式值为 any 类型的时候，生成一个错误
+    "noImplicitThis": true, // 当 this 表达式值为 any 类型的时候，生成一个错误
     // "alwaysStrict": true,                  // 以严格模式检查每个模块，并在每个文件里加入 'use strict'
     /* 额外的检查 */
     "noUnusedLocals": true, // 有未使用的变量时，抛出错误
@@ -30,14 +30,14 @@
     "noFallthroughCasesInSwitch": true, // 报告 switch 语句的 fallthrough 错误。（即，不允许 switch 的 case 语句贯穿）
     /* 模块解析选项 */
     "moduleResolution": "node", // 选择模块解析策略： 'node' (Node.js) or 'classic' (TypeScript pre-1.6)
-    "baseUrl": ".", // 用于解析非相对模块名称的基目录
+    "baseUrl": "./", // 用于解析非相对模块名称的基目录
     // 模块名到基于 baseUrl 的路径映射的列表
     "paths": {
-      "@/*": ["./web/*"]
+      "@/*": ["./src/*"],
     },
     // "rootDirs": [], // 根文件夹列表，其组合内容表示项目运行时的结构内容
     // 包含类型声明的文件列表
-    "typeRoots": ["./typings", "./web/typings", "./node_modules/@types"], // 包含类型声明的文件列表
+    "typeRoots": ["./typings", "./src/typings", "./node_modules/@types"], // 包含类型声明的文件列表
     "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。
     /* Source Map Options */
     // "sourceRoot": "./", // 指定调试器应该找到 TypeScript 文件而不是源文件的位置
@@ -54,12 +54,14 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "suppressImplicitAnyIndexErrors": true,
     "stripInternal": true,
-    "pretty": true,
+    "pretty": true
   },
   "include": [
-    "./web/**/*", // 默认是.ts,.tsx,.vue 当包含allowJs时也包括.js .jsx
-    "./src/**/*", // 默认是.ts,.tsx,.vue 当包含allowJs时也包括.js .jsx
-    "./scripts/**/*" // 默认是.ts,.tsx,.vue 当包含allowJs时也包括.js .jsx
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "scripts/**/*.ts",
+    "scripts/**/*.tsx"
   ],
   "exclude": ["dist", "node_modules", "test", "build"]
 }

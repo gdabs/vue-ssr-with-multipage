@@ -4,7 +4,7 @@
 module.exports = {
   projects: [
     {
-      root: './web',
+      root: './src',
       tsconfig: './tsconfig.json',
     },
   ],

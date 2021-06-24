@@ -1,8 +1,11 @@
 # 官方文档
 
-官方文档请查看 [http://doc.ssr-fc.com/](http://doc.ssr-fc.com/)
-
 ## getting start
+
+```config
+$ config.js # 本地配置
+$ config.prod.js # 生产环境配置
+```
 
 ```bash
 $ npm start # 本地开发模式运行，单进程 支持 前端 HMR 前端静态资源走本地 webpack 服务
