@@ -37,7 +37,7 @@
     },
     // "rootDirs": [], // 根文件夹列表，其组合内容表示项目运行时的结构内容
     // 包含类型声明的文件列表
-    "typeRoots": ["./typings", "./src/typings", "./node_modules/@types"], // 包含类型声明的文件列表
+    "typeRoots": ["./src/typings", "./node_modules/@types"], // 包含类型声明的文件列表
     "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。
     /* Source Map Options */
     // "sourceRoot": "./", // 指定调试器应该找到 TypeScript 文件而不是源文件的位置
@@ -61,7 +61,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "scripts/**/*.ts",
-    "scripts/**/*.tsx"
+    "server/**/*.ts"
   ],
   "exclude": ["dist", "node_modules", "test", "build"]
 }

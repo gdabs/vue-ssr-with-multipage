@@ -1,6 +1,6 @@
 import { join } from 'path'
-import * as webpack from 'webpack'
-import { loadConfig, getLocalNodeModules, nodeExternals } from '../utils'
+import webpack from 'webpack'
+import { loadConfig, nodeExternals } from '../utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -23,9 +23,6 @@ const getServerWebpack = (chain: WebpackChain) => {
     .end()
 
   const modulesDir = [join(cwd, './node_modules')]
-  if (isDev) {
-    modulesDir.push(getLocalNodeModules())
-  }
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/].concat(whiteList || []),
     // externals Dir contains example/xxx/node_modules ssr/node_modules

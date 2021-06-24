@@ -1,5 +1,5 @@
 import { join } from 'path';
-import {  loadConfig, getLocalNodeModules, setStyle } from '../utils';
+import {  loadConfig, setStyle } from '../utils';
 import { getFeDir,getCwd } from '../utils/cwd';
 import * as WebpackChain from 'webpack-chain';
 
@@ -55,7 +55,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const {
     moduleFileExtensions,
     useHash,
-    isDev,
     chainBaseConfig,
     locale,
     corejs,
@@ -105,9 +104,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.resolve.modules
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
-    .when(isDev, chain => {
-      chain.add(getLocalNodeModules());
-    })
     .end()
     .extensions.merge(moduleFileExtensions)
     .end();

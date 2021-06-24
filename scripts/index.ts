@@ -6,6 +6,7 @@ import { loadConfig } from './utils/loadConfig';
 import { Argv } from '../src/interface/config';
 import startClient from './start';
 import buildClient from './build';
+import startServer from '../server';
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')); // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli');
@@ -42,8 +43,8 @@ yargs
     spinner.stop();
     await startClient(argv);
     debug(`clientPlugin ending time: ${Date.now() - start} ms`);
-    // await plugin.serverPlugin?.start?.(argv);
-    // debug(`serverPlugin ending time: ${Date.now() - start} ms`);
+    await startServer();
+    debug(`serverPlugin ending time: ${Date.now() - start} ms`);
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start();
