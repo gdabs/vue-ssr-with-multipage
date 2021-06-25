@@ -1,31 +1,29 @@
 import { join, resolve } from 'path'
-import axios from 'axios'
-import { loadConfig } from '../../../scripts/utils/loadConfig'
+import axios from 'axios';
+import { IConfig } from '@/interface';
 
-const getCwd = () => {
-  return resolve(process.cwd(), process.env.APP_ROOT ?? '')
-}
 let manifest: {
   [key: string]: string
 } = {}
 
-const getManiFest = async () => {
-  const { isDev, fePort, https } = loadConfig()
+const getManiFest = async (config: IConfig) => {
+  const { isDev, fePort, https } = config;
 
   if (Object.keys(manifest).length !== 0) {
     return
   }
-  const cwd = getCwd()
+  const cwd = resolve(process.cwd(), process.env.APP_ROOT ?? '');
   if (isDev) {
     const res = await axios.get(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
+    console.log(res.data, 'aaa')
     manifest = res.data
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
 }
-const getManifest = async () => {
-  await getManiFest()
-  return manifest
+const getManifest = async (config: IConfig) => {
+  await getManiFest(config);
+  return manifest;
 }
 
 export {

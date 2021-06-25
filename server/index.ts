@@ -1,5 +1,5 @@
-import Koa from 'koa';
 import { resolve } from 'path';
+import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from 'kcors';
 import helmet from 'koa-helmet';
@@ -43,7 +43,7 @@ const startServer = async () => {
 
   app.use(responseHandler());
 
-  router.get('*', async (ctx, next) => {
+  router.get('/index', async (ctx, next) => {
     const stream = await render(ctx, defaultConfig);
     ctx.response.body = stream;
   })

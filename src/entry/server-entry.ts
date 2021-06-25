@@ -26,7 +26,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`]);
   }
 
-  const manifest = await getManifest();
+  const manifest = await getManifest(config);
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`);

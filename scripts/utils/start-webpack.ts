@@ -2,9 +2,8 @@ import webpack from 'webpack';
 import { loadConfig } from './loadConfig';
 import { promisify } from 'util';
 
-const webpackPromisify = promisify<webpack.Configuration, webpack.Stats>(webpack);
-
 const WebpackDevServer = require('webpack-dev-server-ssr');
+const webpackPromisify = promisify<webpack.Configuration, webpack.Stats>(webpack);
 const config = loadConfig();
 
 const startClientServer = async (webpackConfig: webpack.Configuration) => {

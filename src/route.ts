@@ -13,7 +13,7 @@ export const FeRoutes = [
     fetch: __isBrowser__
       ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch')
       : require('@/pages/index/fetch.ts').default,
-    path: '/',
+    path: '/index',
     component: __isBrowser__
       ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue')
       : require('@/pages/index/render.vue').default,

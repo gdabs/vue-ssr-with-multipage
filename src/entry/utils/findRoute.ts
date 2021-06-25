@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { pathToRegexp } from 'path-to-regexp'
 
 const debug = require('debug')('ssr:render')
@@ -24,15 +23,16 @@ function compilePath (path, options) {
   return result
 }
 
-function matchPath (pathname, options = {}) {
+function matchPath (pathname: string, options = {}) {
   if (typeof options === 'string' || Array.isArray(options)) {
     options = { path: options }
   }
 
-  const { path, exact = false, strict = false, sensitive = false } = options
+  const { path, exact = false, strict = false, sensitive = false } = options as any;
 
   const paths = [].concat(path)
 
+  console.log(paths)
   return paths.reduce((matched, path) => {
     if (!path && path !== '') return null
     if (matched) return matched
@@ -43,6 +43,7 @@ function matchPath (pathname, options = {}) {
       sensitive
     })
     const match = regexp.exec(pathname)
+    console.log(match, 'aaa')
 
     if (!match) return null
 
@@ -51,6 +52,7 @@ function matchPath (pathname, options = {}) {
 
     if (exact && !isExact) return null
 
+    console.log(isExact, 'isEx')
     return {
       path, // the path used to match
       url: path === '/' && url === '' ? '/' : url, // the matched portion of the URL

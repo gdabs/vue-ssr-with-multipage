@@ -6,7 +6,7 @@
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "nodemon --config nodemon.json scripts/index.ts start",
-    "build": "rimraf dist && nodemon --config nodemon.json scripts/index.ts build",
+    "build": "rimraf build && nodemon --config nodemon.json scripts/index.ts build",
     "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
     "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
   },
