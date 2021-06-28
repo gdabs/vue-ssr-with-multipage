@@ -8,19 +8,22 @@ import cookie from 'koa-cookie';
 import requestId from 'koa-requestid';
 import Router from 'koa-router';
 import koaStatic from 'koa-static';
-import staticCache from 'koa-static-cache';
+// import staticCache from 'koa-static-cache';
 
 import { render } from './render';
-import { getCwd } from '../scripts/utils';
+// import { getCwd } from '../scripts/utils';
 import * as log from './helpers/log';
 import { loadConfig } from '../scripts/utils';
 import responseHandler from './middleware/responseHandler';
+const proxy = require('koa-server-http-proxy')
 
 const defaultConfig = loadConfig();
-const cwd = getCwd();
+// const cwd = getCwd();
+
+const resolvePath = (filePath) => resolve(__dirname, filePath);
 
 const startServer = async () => {
-  const { isDev, serverPort, host } = defaultConfig;
+  const { isDev, serverPort, fePort, host } = defaultConfig;
 
   const app = new Koa();
   const router = new Router();
@@ -29,21 +32,25 @@ const startServer = async () => {
   app.use(bodyParser());
   app.use(cookie());
   app.use(requestId());
-  app.use(koaStatic(__dirname + '../build'))
-  app.use(staticCache(resolve(cwd, `./build/server`),{
-    maxAge: 365 * 24 * 60 * 60,
-    gzip:true
-  }));
+  app.use(koaStatic(resolvePath('../build')))
+  // app.use(staticCache(resolve(cwd, `./build/server`),{
+  //   maxAge: 365 * 24 * 60 * 60,
+  //   gzip:true
+  // }));
 
   app.use(helmet());
 
   app.use(cors({
     exposeHeaders: ['X-Request-Id']
   }));
+  isDev && app.use(proxy(['/static/**', '/sockjs-node/**', '/__webpack_dev_server__/**', "**.**.hot-update/"], {
+    target: `http://127.0.0.1:${fePort}`,
+    changeOrigin: true
+  }));
 
   app.use(responseHandler());
 
-  router.get('/index', async (ctx, next) => {
+  router.get('/home', async (ctx, next) => {
     const stream = await render(ctx, defaultConfig);
     ctx.response.body = stream;
   })

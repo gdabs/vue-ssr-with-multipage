@@ -11,13 +11,13 @@ export const FeRoutes = [
   },
   {
     fetch: __isBrowser__
-      ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch')
-      : require('@/pages/index/fetch.ts').default,
-    path: '/index',
+      ? () => import(/* webpackChunkName: "home-fetch" */ '@/pages/home/fetch')
+      : require('@/pages/home/fetch.ts').default,
+    path: '/home',
     component: __isBrowser__
-      ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue')
-      : require('@/pages/index/render.vue').default,
-    webpackChunkName: 'index',
+      ? () => import(/* webpackChunkName: "home" */ '@/pages/home/render.vue')
+      : require('@/pages/home/render.vue').default,
+    webpackChunkName: 'home',
   },
 ];
 

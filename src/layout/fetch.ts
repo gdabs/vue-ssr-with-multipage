@@ -9,8 +9,6 @@ export default async (
     apiService?: IApiService;
   }>
 ): Promise<any> => {
-  const data = __isBrowser__
-    ? await (await window.fetch('/api/index')).json()
-    : await ctx?.apiService?.index();
+  const data = await window.fetch(`/api/home`);
   await store.dispatch('indexStore/initialData', { payload: data });
 };

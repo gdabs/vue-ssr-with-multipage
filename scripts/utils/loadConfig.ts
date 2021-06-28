@@ -1,6 +1,8 @@
 import { join } from 'path';
+import webpackMock from 'webpack-api-mocker';
 import { IConfig } from '@/interface';
 import { getCwd, getUserConfig } from './cwd';
+import mocks from '../../mock';
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig();
@@ -95,6 +97,9 @@ const loadConfig = (): IConfig => {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
         'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      },
+      before(app) {
+        webpackMock(app, mocks);
       },
     },
     userConfig.webpackDevServerConfig

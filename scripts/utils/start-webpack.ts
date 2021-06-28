@@ -15,7 +15,6 @@ const startClientServer = async (webpackConfig: webpack.Configuration) => {
     compiler.hooks.done.tap('DonePlugin', () => {
       resolve(undefined);
     });
-
     server.listen(fePort, host);
   });
 };

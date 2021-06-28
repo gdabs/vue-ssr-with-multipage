@@ -15,7 +15,6 @@ const getManiFest = async (config: IConfig) => {
   const cwd = resolve(process.cwd(), process.env.APP_ROOT ?? '');
   if (isDev) {
     const res = await axios.get(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
-    console.log(res.data, 'aaa')
     manifest = res.data
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))

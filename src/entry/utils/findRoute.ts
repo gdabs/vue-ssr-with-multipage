@@ -32,7 +32,6 @@ function matchPath (pathname: string, options = {}) {
 
   const paths = [].concat(path)
 
-  console.log(paths)
   return paths.reduce((matched, path) => {
     if (!path && path !== '') return null
     if (matched) return matched
@@ -43,7 +42,6 @@ function matchPath (pathname: string, options = {}) {
       sensitive
     })
     const match = regexp.exec(pathname)
-    console.log(match, 'aaa')
 
     if (!match) return null
 
@@ -52,7 +50,6 @@ function matchPath (pathname: string, options = {}) {
 
     if (exact && !isExact) return null
 
-    console.log(isExact, 'isEx')
     return {
       path, // the path used to match
       url: path === '/' && url === '' ? '/' : url, // the matched portion of the URL
