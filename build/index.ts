@@ -53,9 +53,16 @@ yargs
     spinner.stop();
 
     await buildClient(argv);
-    // await plugin.serverPlugin?.build?.(argv);
   })
-  .demandCommand(1, 'You need at least one command before moving on')
+  .command('production', 'Build server and client files', {}, async (argv: Argv) => {
+    spinner.start();
+    process.env.NODE_ENV = 'production';
+
+    spinner.stop();
+
+    await buildClient(argv);
+    await startServer();
+  })
   .option('version', {
     alias: 'v',
     default: false,

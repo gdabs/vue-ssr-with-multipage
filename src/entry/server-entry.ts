@@ -84,7 +84,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         Layout,
         { ctx, config },
         {
-
+          remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
           customeHeadScript: () =>
             customeHeadScript?.map(item =>
               h(

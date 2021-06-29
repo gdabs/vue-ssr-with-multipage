@@ -33,7 +33,7 @@
     "baseUrl": "./", // 用于解析非相对模块名称的基目录
     // 模块名到基于 baseUrl 的路径映射的列表
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     // "rootDirs": [], // 根文件夹列表，其组合内容表示项目运行时的结构内容
     // 包含类型声明的文件列表
@@ -61,8 +61,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "mock/**/*.ts",
-    "scripts/**/*.ts",
+    "build/**/*.ts",
     "server/**/*.ts"
   ],
-  "exclude": ["dist", "node_modules", "test", "build"]
+  "exclude": ["dist", "node_modules", "test"]
 }

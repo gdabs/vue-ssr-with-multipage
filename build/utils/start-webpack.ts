@@ -4,9 +4,9 @@ import { promisify } from 'util';
 
 const WebpackDevServer = require('webpack-dev-server-ssr');
 const webpackPromisify = promisify<webpack.Configuration, webpack.Stats>(webpack);
-const config = loadConfig();
 
 const startClientServer = async (webpackConfig: webpack.Configuration) => {
+  const config = loadConfig();
   const { webpackDevServerConfig, fePort, host } = config;
   return await new Promise(resolve => {
     const compiler = webpack(webpackConfig);
@@ -20,6 +20,7 @@ const startClientServer = async (webpackConfig: webpack.Configuration) => {
 };
 
 const startClientBuild = async (webpackConfig: webpack.Configuration) => {
+  const config = loadConfig();
   const { webpackStatsOption } = config;
   const stats = await webpackPromisify(webpackConfig);
   console.log(stats.toString(webpackStatsOption));

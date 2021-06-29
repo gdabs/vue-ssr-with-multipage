@@ -6,6 +6,6 @@ interface ApiDeatilservice {
 export default async ({ store, router }, ctx?: ISSRContext<{
   apiDeatilservice?: ApiDeatilservice
 }>) => {
-  const data = await window.fetch(`/api/detail/${router.params.id}`);
-  await store.dispatch('detailStore/initialData', { payload: data })
+  // const data = await axios(`/api/detail/${router.params.id}`);
+  // await store.dispatch('detailStore/initialData', { payload: data })
 }

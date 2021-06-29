@@ -1,8 +1,8 @@
 import { join } from 'path';
-import webpackMock from 'webpack-api-mocker';
+// import webpackMock from 'webpack-api-mocker';
 import { IConfig } from '@/interface';
 import { getCwd, getUserConfig } from './cwd';
-import mocks from '../../mock';
+// import mocks from '../../mock';
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig();
@@ -75,8 +75,8 @@ const loadConfig = (): IConfig => {
 
   const corejs = false;
   const getOutput = () => ({
-    clientOutPut: join(cwd, './build/client'),
-    serverOutPut: join(cwd, './build/server'),
+    clientOutPut: join(cwd, './dist/client'),
+    serverOutPut: join(cwd, './dist/server'),
   });
 
   const cssModulesWhiteList = [/antd/, /swiper/];
@@ -98,9 +98,9 @@ const loadConfig = (): IConfig => {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
         'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
       },
-      before(app) {
-        webpackMock(app, mocks);
-      },
+      // before(app) {
+      //   webpackMock(app, mocks);
+      // },
     },
     userConfig.webpackDevServerConfig
   );

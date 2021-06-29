@@ -9,6 +9,6 @@ export default async (
     apiService?: IApiService;
   }>
 ): Promise<any> => {
-  const data = await window.fetch(`/api/home`);
-  await store.dispatch('indexStore/initialData', { payload: data });
+  // const data = await window.fetch(`/api/home`);
+  // await store.dispatch('indexStore/initialData', { payload: data });
 };
