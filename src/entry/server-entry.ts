@@ -47,10 +47,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   if (!isCsr) {
     // csr 下不需要服务端获取数据
     if (layoutFetch) {
-      layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx);
+      layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value });
     }
     if (fetch) {
-      fetchData = await fetch({ store, router: router.currentRoute.value }, ctx);
+      fetchData = await fetch({ store, router: router.currentRoute.value });
     }
   }
 

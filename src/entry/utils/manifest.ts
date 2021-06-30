@@ -19,7 +19,10 @@ const getManiFest = async (config: IConfig) => {
     );
     manifest = res.data;
   } else {
-    manifest = require(resolve(cwd, './dist/client/asset-manifest.json'));
+    const manifestFile = resolve(cwd, `./dist/client/asset-manifest.json`);
+    // delete require.cache[manifestFile];
+    // console.log(manifestFile, 'manifestFile')
+    manifest = require(manifestFile).default;;
   }
 };
 const getManifest = async (config: IConfig) => {

@@ -33,6 +33,7 @@ const getDevProxyMiddlewaresArr = async (config: IConfig) => {
     }
 
     const proxyPathMap = {
+      '/api': remoteStaticServerOptions,
       '/static': remoteStaticServerOptions,
       '/sockjs-node': remoteStaticServerOptions,
       '/*.hot-update**': remoteStaticServerOptions,

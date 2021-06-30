@@ -12,7 +12,7 @@ export const FeRoutes = [
   {
     fetch: __isBrowser__
       ? () => import(/* webpackChunkName: "home-fetch" */ '@/pages/home/fetch')
-      : require('@/pages/home/fetch.ts').default,
+      : require('@/pages/home/fetch').default,
     path: '/home',
     component: __isBrowser__
       ? () => import(/* webpackChunkName: "home" */ '@/pages/home/render.vue')

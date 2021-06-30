@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-const apis = {
+export default {
   // [`POST /api/user/login`](req, res) {
   //   const adminUsers = [
   //     { username: 'fdasf', password: '12341', id: 22 }
@@ -37,7 +37,7 @@ const apis = {
       }
     ]
   }),
-  'POST /api/home': [
+  ['POST /api/home']: [
     {
       components: [
         {
@@ -303,5 +303,3 @@ const apis = {
     }
   ]
 }
-
-export default apis;

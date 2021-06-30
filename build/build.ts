@@ -5,8 +5,8 @@ const buildClient = async argv => {
   const serverConfigChain = new WebpackChain();
   const clientConfigChain = new WebpackChain();
   await Promise.all([
-    startServerBuild(getServerWebpack(serverConfigChain)),
     startClientBuild(getClientWebpack(clientConfigChain)),
+    startServerBuild(getServerWebpack(serverConfigChain)),
   ]);
 };
 

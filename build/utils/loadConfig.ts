@@ -1,17 +1,22 @@
+import fs from 'fs';
 import { join } from 'path';
-// import webpackMock from 'webpack-api-mocker';
+import webpackMock from 'mocker-api';
 import { IConfig } from '@/interface';
 import { getCwd, getUserConfig } from './cwd';
-// import mocks from '../../mock';
+
+const cwd = getCwd();
+const mockEntrys = fs.readdirSync(join(cwd, './mock'));
+const mockFiles = mockEntrys.map(item => join(cwd, `./mock/${item}`));
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig();
-  const cwd = getCwd();
+  
   const mode = 'ssr';
   const stream = false;
   type ClientLogLevel = 'error';
 
   const publicPath = '/';
+  
 
   const moduleFileExtensions = [
     '.web.mjs',
@@ -98,9 +103,9 @@ const loadConfig = (): IConfig => {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
         'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
       },
-      // before(app) {
-      //   webpackMock(app, mocks);
-      // },
+      before(app) {
+        webpackMock(app, mockFiles);
+      },
     },
     userConfig.webpackDevServerConfig
   );
@@ -144,7 +149,7 @@ const loadConfig = (): IConfig => {
     userConfig
   );
 
-  config.webpackDevServerConfig = webpackDevServerConfig; // 防止把整个 webpackDevServerConfig 全量覆盖了
+  isDev && (config.webpackDevServerConfig = webpackDevServerConfig); // 防止把整个 webpackDevServerConfig 全量覆盖了
 
   return config;
 };

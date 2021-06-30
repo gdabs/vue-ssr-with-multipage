@@ -53,6 +53,7 @@ yargs
     spinner.stop();
 
     await buildClient(argv);
+
   })
   .command('production', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start();

@@ -1,5 +1,5 @@
 // import Mock from 'mockjs';
-const apis = {
+export default {
   [`POST /api/detail`]: {
     cbba934b14f747049187: {
       data: [
@@ -176,6 +176,4 @@ const apis = {
       ]
     }
   }
-}
-
-export default apis;
+};

@@ -2,6 +2,11 @@
 
 ## getting start
 
+```env
+$ .env # 通用环境变量
+$ .env.development # development环境变量
+$ .env.production # production环境变量
+
 ```config
 $ config.js # 本地配置
 $ config.prod.js # 生产环境配置
