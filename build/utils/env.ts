@@ -1,9 +1,12 @@
 import fs from 'fs';
 import { resolve } from 'path';
 import { getCwd } from './cwd';
+import { loadConfig } from './loadConfig';
 
 const cwd = getCwd();
 const dotenv = resolve(cwd, `./env/.env`);
+
+const { publicPath } = loadConfig();
 
 const FRONT_ENV = process.env.NODE_ENV || 'development';
 
@@ -43,6 +46,7 @@ function getClientEnvironment() {
       },
       {
         NODE_ENV: process.env.NODE_ENV || 'development',
+        PUBLIC_URL: publicPath || '/',
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

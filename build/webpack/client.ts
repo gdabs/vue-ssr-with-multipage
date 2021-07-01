@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import { GenerateSW } from 'workbox-webpack-plugin';
 import { loadConfig } from '../utils/loadConfig';
 import { getClientEnvironment } from '../utils/env';
 import * as WebpackChain from 'webpack-chain';
@@ -109,6 +110,24 @@ const getClientWebpack = (chain: WebpackChain) => {
       fileName: 'asset-manifest.json',
       publicPath: truePublicPath,
     },
+  ]);
+
+  !isDev && chain.plugin('serviceWorker').use(GenerateSW, [
+    {
+      clientsClaim: true,
+      exclude: [/\.map$/, /asset-manifest\.json$/],
+      navigateFallback: truePublicPath + '/index',
+      offlineGoogleAnalytics: true,
+      navigateFallbackDenylist: [
+        // Exclude URLs starting with /_, as they're likely an API call
+        new RegExp('^/_'),
+        // Exclude any URLs whose last part seems to be a file extension
+        // as they're likely a resource and not a SPA route.
+        // URLs containing a "?" character won't be blacklisted as they're likely
+        // a route with query params (e.g. auth callbacks).
+        new RegExp('/[^/?]+\\.[^/]+$'),
+      ],
+    }
   ]);
 
   chain.when(generateAnalysis, chain => {

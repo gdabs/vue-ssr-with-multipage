@@ -60,6 +60,7 @@
     "@types/node": "^15.12.2",
     "@types/serialize-javascript": "^5.0.0",
     "@types/webpack": "^4.41.29",
+    "@types/workbox-webpack-plugin": "^5.1.7",
     "@types/yargs": "^13.0.4",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
@@ -113,6 +114,7 @@
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3",
+    "workbox-webpack-plugin": "^6.1.5",
     "yargs": "^13.2.4"
   },
   "husky": {

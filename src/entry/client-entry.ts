@@ -3,6 +3,7 @@ import { Store } from 'vuex';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { findRoute } from './utils/findRoute';
 import { createRouter, createStore } from './utils/create';
+import * as serviceWorker from '@/serviceWorker';
 import { ESMFetch, IClientFeRouteItem } from '@/interface';
 import { FeRoutes } from '@/route';
 import layoutFetch from '@/layout/fetch';
@@ -76,6 +77,11 @@ const clientRender = async () => {
   window.__VUE_ROUTER__ = router;
 
   app.mount('#app', !!window.__USE_SSR__); // 这里需要做判断 ssr/csr 来为 true/false
+
+  // If you want your app to work offline and load faster, you can change
+  // unregister() to register() below. Note this comes with some pitfalls.
+  // Learn more about service workers: https://bit.ly/CRA-PWA
+  serviceWorker.register();
   if (process.env.NODE_ENV === 'development') {
     module?.hot?.accept?.(); // webpack 场景下的 hmr
   }
