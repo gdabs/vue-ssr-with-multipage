@@ -1,5 +1,5 @@
 const WebpackChain = require('webpack-chain');
-const startClient = async argv => {
+const startClient = async () => {
   const { startServerBuild, startClientServer } = await import('./utils');
   const { getServerWebpack, getClientWebpack } = await import('./webpack');
   const serverConfigChain = new WebpackChain();

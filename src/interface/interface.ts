@@ -3,7 +3,7 @@ import { Store, StoreOptions } from 'vuex';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import * as Koa from 'koa';
 
-export type ISSRContext<T = {}> = (Koa.Context) & T;
+export type ISSRContext<T = {}> = Koa.Context & T;
 export declare type ESMFeRouteItem<T = {}> = {
   path: string;
   webpackChunkName: string;

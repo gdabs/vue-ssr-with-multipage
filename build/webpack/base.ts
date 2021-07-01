@@ -1,6 +1,6 @@
 import { join } from 'path';
-import {  loadConfig, setStyle } from '../utils';
-import { getFeDir,getCwd } from '../utils/cwd';
+import { loadConfig, setStyle } from '../utils';
+import { getFeDir, getCwd } from '../utils/cwd';
 import * as WebpackChain from 'webpack-chain';
 
 type Mode = 'development' | 'production';
@@ -43,6 +43,15 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
             style: true,
           },
           'vant',
+        ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'lodash',
+            libraryDirectory: '',
+            camel2DashComponentName: false,
+          },
+          'lodash',
         ],
         loadModule('@vue/babel-plugin-jsx'),
       ],

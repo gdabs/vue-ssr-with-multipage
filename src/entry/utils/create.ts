@@ -14,7 +14,7 @@ function createRouter(options: VueRouterOptions = {}) {
 }
 
 function createStore() {
-  return createVuexStore(store||{});
+  return createVuexStore(store || {});
 }
 
 export { createRouter, createStore };

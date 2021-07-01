@@ -1,20 +1,18 @@
 const searchStore = {
   namespaced: true,
   state: {
-    searchText: ''
+    searchText: '',
   },
   mutations: {
-    setText (state, payload) {
-      state.searchText = payload.text
-    }
+    setText(state, payload) {
+      state.searchText = payload.text;
+    },
   },
   actions: {
-    setText ({ commit }, { payload }) {
-      commit('setText', payload)
-    }
-  }
-}
+    setText({ commit }, { payload }) {
+      commit('setText', payload);
+    },
+  },
+};
 
-export {
-  searchStore
-}
+export { searchStore };

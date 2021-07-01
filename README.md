@@ -10,6 +10,7 @@ $ .env.production # production环境变量
 ```config
 $ config.js # 本地配置
 $ config.prod.js # 生产环境配置
+需要配置routes(提供path给node服务的router使用), 以及一些webpack配置
 ```
 
 ```bash

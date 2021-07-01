@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { join } from 'path';
 import axios from 'axios';
 import { IConfig } from '@/interface';
 
@@ -6,27 +6,26 @@ let manifest: {
   [key: string]: string;
 } = {};
 
-const getManiFest = async (config: IConfig) => {
+const getManiFest = async (config: IConfig, cwd: string) => {
   const { isDev, fePort, https } = config;
 
   if (Object.keys(manifest).length !== 0) {
     return;
   }
-  const cwd = resolve(process.cwd(), process.env.APP_ROOT ?? '');
   if (isDev) {
     const res = await axios.get(
       `${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`
     );
     manifest = res.data;
   } else {
-    const manifestFile = resolve(cwd, `./dist/client/asset-manifest.json`);
-    // delete require.cache[manifestFile];
-    // console.log(manifestFile, 'manifestFile')
-    manifest = require(manifestFile).default;;
+    const manifestFile = join(cwd, `./dist/client/asset-manifest.json`);
+    console.log(manifestFile, 'manifestFile')
+    manifest = require(manifestFile);
+    console.log(manifest, 'manifest')
   }
 };
-const getManifest = async (config: IConfig) => {
-  await getManiFest(config);
+const getManifest = async (config: IConfig, cwd: string) => {
+  await getManiFest(config, cwd);
   return manifest;
 };
 

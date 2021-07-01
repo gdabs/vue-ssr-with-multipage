@@ -41,7 +41,7 @@ yargs
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`);
     debug(`loadPlugin time: ${Date.now() - start} ms`);
     spinner.stop();
-    await startClient(argv);
+    await startClient();
     debug(`clientPlugin ending time: ${Date.now() - start} ms`);
     await startServer();
     debug(`serverPlugin ending time: ${Date.now() - start} ms`);
@@ -52,8 +52,15 @@ yargs
 
     spinner.stop();
 
-    await buildClient(argv);
+    await buildClient();
+  })
+  .command('server', 'start server ...', {}, async (argv: Argv) => {
+    spinner.start();
+    process.env.NODE_ENV = 'production';
 
+    spinner.stop();
+
+    await startServer();
   })
   .command('production', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start();
@@ -61,7 +68,7 @@ yargs
 
     spinner.stop();
 
-    await buildClient(argv);
+    await buildClient();
     await startServer();
   })
   .option('version', {

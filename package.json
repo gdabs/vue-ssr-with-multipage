@@ -2,15 +2,17 @@
   "name": "vue-ssr-with-multipage",
   "version": "1.0.0",
   "private": true,
+  "types": "./src/typings/*.d.ts",
   "scripts": {
     "start": "nodemon --config nodemon.json build/index.ts start",
     "build": "rimraf dist && ts-node build/index.ts build",
+    "server": "ts-node build/index.ts server",
     "production": "rimraf dist && nodemon --config nodemon.json build/index.ts production",
-    "analyze": "cross-env NODE_ENV=production use_analyzer=true npm run build",
+    "analyze": "cross-env GENERATE_ANALYSIS=true npm run build",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .eslintignore .",
-    "lint:js": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=stylish ./src --ignore-path .eslintignore .",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx,.vue --ignore-path .eslintignore .",
+    "lint:js": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx,.vue --format=stylish ./src --ignore-path .eslintignore .",
     "lint:prettier": "check-prettier lint ./src --ignore-path .eslintignore .",
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "prettier": "prettier -c --write \"src/**/*\""
@@ -67,6 +69,7 @@
     "@vue/eslint-config-typescript": "^7.0.0",
     "babel-loader": "8.0.4",
     "babel-plugin-import": "^1.13.0",
+    "check-prettier": "^1.0.3",
     "core-js": "^3.6.4",
     "cross-env": "^7.0.3",
     "css-hot-loader": "^1.4.4",
@@ -78,6 +81,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
     "file-loader": "2.0.0",
+    "husky": "^6.0.0",
     "ignore-loader": "^0.1.2",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
@@ -111,15 +115,22 @@
     "webpackbar": "^5.0.0-3",
     "yargs": "^13.2.4"
   },
-  "midway-integration": {
-    "tsCodeRoot": "src"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
   },
-  "midway-luckyeye": {
-    "packages": [
-      "midway_v2"
-    ]
+  "lint-staged": {
+    "**/*.less": "stylelint --syntax less",
+    "**/*.{js,jsx,tsx,ts,vue,less,md,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{jsx}": "npm run lint-staged:js",
+    "**/*.{ts,tsx,vue}": "npm run lint-staged:js"
   },
-  "egg": {
-    "framework": "@midwayjs/web"
+  "engines": {
+    "node": ">=10.0.0"
   }
 }

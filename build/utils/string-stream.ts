@@ -1,23 +1,21 @@
-const stream = require('readable-stream')
+const stream = require('readable-stream');
 
 class StringToStream extends stream.Readable {
-  constructor (str: string) {
-    super()
-    this._str = str
-    this._encoding = 'utf8'
+  constructor(str: string) {
+    super();
+    this._str = str;
+    this._encoding = 'utf8';
   }
 
-  _read () {
+  _read() {
     if (!this.ended) {
       process.nextTick(() => {
-        this.push(Buffer.from(this._str, this._encoding))
-        this.push(null)
-      })
-      this.ended = true
+        this.push(Buffer.from(this._str, this._encoding));
+        this.push(null);
+      });
+      this.ended = true;
     }
   }
 }
 
-export {
-  StringToStream
-}
+export { StringToStream };

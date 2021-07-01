@@ -1,6 +1,5 @@
 import * as Vue from 'vue';
 import { h, createSSRApp } from 'vue';
-import { getManifest } from './utils/manifest';
 import { findRoute } from './utils/findRoute';
 import { logGreen } from './utils/log';
 import serialize from 'serialize-javascript';
@@ -11,12 +10,11 @@ import Layout from '@/layout/index.vue';
 import App from '@/layout/App.vue';
 import { IConfig, IServerFeRouteItem, ISSRContext } from '@/interface';
 
-const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  // eslint-disable-next-line
+const serverRender = async (ctx: ISSRContext, config: IConfig, manifest: { [key: string]: string;} ) => {
   global.window = global.window ?? { ...global.window }; // 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false;
   const router = createRouter();
-  let path = ctx.request.path; // 这里取 pathname 不能够包含 queyString
+  const path = ctx.request.path; // 这里取 pathname 不能够包含 queyString
   const store = createStore();
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config;
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path);
@@ -25,8 +23,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`]);
   }
-
-  const manifest = await getManifest(config);
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`);
@@ -84,7 +80,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         Layout,
         { ctx, config },
         {
-          remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
+          remInitial: () =>
+            h('script', {
+              innerHTML:
+                "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'",
+            }),
           customeHeadScript: () =>
             customeHeadScript?.map(item =>
               h(

@@ -65,7 +65,7 @@ const clientRender = async () => {
 
   if (!window.__USE_SSR__) {
     // 如果是 csr 模式 则需要客户端获取首页需要的数据
-    let pathname = location.pathname;
+    const pathname = location.pathname;
     const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, pathname);
     const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value);
     fetchData = combineAysncData;

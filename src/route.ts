@@ -20,4 +20,3 @@ export const FeRoutes = [
     webpackChunkName: 'home',
   },
 ];
-

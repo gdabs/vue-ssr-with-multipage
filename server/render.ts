@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { getCwd, StringToStream } from '../build/utils';
+import { getManifest } from './middleware/manifest'
 import { renderToStream, renderToString } from '@vue/server-renderer';
 import { ISSRContext, IConfig } from '@/interface';
 
@@ -15,9 +16,12 @@ async function render<T = string>(ctx: ISSRContext, config?: IConfig): Promise<T
     delete require.cache[serverFile];
   }
   ctx.response.type = 'text/html';
+  
+  const manifest = await getManifest(config, cwd);
+  
   const serverRender = require(serverFile).default;
 
-  const serverRes = await serverRender(ctx, config);
+  const serverRes = await serverRender(ctx, config, manifest);
 
   return stream
     ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))

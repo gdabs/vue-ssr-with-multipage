@@ -10,13 +10,12 @@ const mockFiles = mockEntrys.map(item => join(cwd, `./mock/${item}`));
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig();
-  
+
   const mode = 'ssr';
   const stream = false;
   type ClientLogLevel = 'error';
 
   const publicPath = '/';
-  
 
   const moduleFileExtensions = [
     '.web.mjs',

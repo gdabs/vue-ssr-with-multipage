@@ -99,6 +99,11 @@ const getClientWebpack = (chain: WebpackChain) => {
     },
   ]);
 
+  chain.plugin('ignore').use(webpack.IgnorePlugin, [
+    /^\.\/locale$/,
+    /moment$/
+  ]);
+
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [
     {
       fileName: 'asset-manifest.json',
