@@ -7,8 +7,6 @@ dest
 dist
 coverage
 .idea
-package-lock.json
-yarn.lock
 .DS_*
 .nyc*
 run/
