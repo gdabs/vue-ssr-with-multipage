@@ -1,5 +1,6 @@
 import { resolve } from 'path';
-import { getCwd, StringToStream } from '../build/utils';
+import { StringToStream } from './buffer/string-stream'
+import { getCwd } from '../build/utils';
 import { getManifest } from './middleware/manifest'
 import { renderToStream, renderToString } from '@vue/server-renderer';
 import { ISSRContext, IConfig } from '@/interface';

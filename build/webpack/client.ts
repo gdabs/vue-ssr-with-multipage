@@ -35,7 +35,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .runtimeChunk(true)
     .splitChunks({
       chunks: 'initial',
-      name: false,
+      name: true,
       cacheGroups: {
         vendors: {
           test: (module: any) => {

@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios';
 import cookie from '@/utils/cookie';
-import { omit, assign } from 'lodash';
 
 interface IRequestOption extends AxiosRequestConfig {
   url: string; // 请求的url
@@ -55,7 +54,7 @@ class Request {
         // 已改为从cookie拿token
         Authoration: `${token || cookie.getToken()}`,
       };
-      assign(config.headers, params);
+      Object.assign(config.headers, params);
       return config;
     });
   }
@@ -79,10 +78,12 @@ class Request {
         options.url = options.url.replace(reg, options.params[key]);
       });
     }
+    const data = options.data;
+    Reflect.deleteProperty(options, 'data')
     return this.request({
-      ...omit(options, 'data'),
+      ...options,
       method: 'get',
-      params: { timespan: new Date().getTime(), ...options.data },
+      params: { timespan: new Date().getTime(), ...data },
     });
   };
 
@@ -93,8 +94,9 @@ class Request {
         opt.url = opt.url.replace(reg, opt.params[key]);
       });
     }
+    Reflect.deleteProperty(opt, 'params');
     return this.request({
-      ...omit(opt, 'params'),
+      ...opt,
       method: 'post',
     });
   };
@@ -106,8 +108,9 @@ class Request {
         opt.url = opt.url.replace(reg, opt.params[key]);
       });
     }
+    Reflect.deleteProperty(opt, 'params');
     return this.request({
-      ...omit(opt, 'params'),
+      ...opt,
       method: 'put',
     });
   };
@@ -119,8 +122,9 @@ class Request {
         opt.url = opt.url.replace(reg, opt.params[key]);
       });
     }
+    Reflect.deleteProperty(opt, 'params');
     return this.request({
-      ...omit(opt, 'params'),
+      ...opt,
       method: 'patch',
     });
   };
@@ -132,8 +136,9 @@ class Request {
         opt.url = opt.url.replace(reg, opt.params[key]);
       });
     }
+    Reflect.deleteProperty(opt, 'params');
     return this.request({
-      ...omit(opt, 'params'),
+      ...opt,
       method: 'delete',
     });
   };

@@ -4,4 +4,3 @@ export * from './externals';
 export * from './loadConfig';
 export * from './setStyle';
 export * from './start-webpack';
-export * from './string-stream';
