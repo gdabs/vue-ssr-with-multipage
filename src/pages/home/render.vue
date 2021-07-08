@@ -2,7 +2,6 @@
   <div>
     <Search />
     <template v-if="indexData">
-      fda
       <Slider :data="indexData[0].components" />
       <Rectangle :data="indexData[1].components" />
     </template>
