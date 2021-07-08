@@ -8121,7 +8121,7 @@ path-to-regexp@0.1.7:
   resolved "https://registry.nlark.com/path-to-regexp/download/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
-path-to-regexp@6.2.0, path-to-regexp@^6.1.0, path-to-regexp@^6.2.0:
+path-to-regexp@6.2.0, path-to-regexp@^6.1.0:
   version "6.2.0"
   resolved "https://registry.nlark.com/path-to-regexp/download/path-to-regexp-6.2.0.tgz#f7b3803336104c346889adece614669230645f38"
   integrity sha1-97OAMzYQTDRoia3s5hRmkjBkXzg=

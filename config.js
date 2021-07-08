@@ -1,5 +1,7 @@
 module.exports = {
-  mode: 'ssr',
   publicPath: '/',
-  routes: ['/home', '/detail/:id'],
+  routes: {
+    home: '/home',
+    detail: '/detail/:id',
+  },
 };

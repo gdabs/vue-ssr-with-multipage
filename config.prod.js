@@ -1,4 +1,6 @@
 module.exports = {
-  mode: 'ssr',
-  routes: ['/home', '/detail/:id'],
+  routes: {
+    home: '/home',
+    detail: '/detail/:id',
+  },
 };

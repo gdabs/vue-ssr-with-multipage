@@ -23,7 +23,7 @@ export default {
   props: ['data'],
   methods: {
     toDetail() {
-      this.$router.push('/detail/cbba934b14f747049187');
+      location.href = '/detail/cbba934b14f747049187';
     },
   },
 };

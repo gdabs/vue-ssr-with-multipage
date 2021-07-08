@@ -15,14 +15,11 @@ export interface IConfig {
   host: string;
   fePort: number;
   serverPort: number;
-  chunkName: string;
   getOutput: () => {
     clientOutPut: string;
     serverOutPut: string;
   };
   proxy?: any;
-  cssOrder: string[];
-  jsOrder: string[];
   css?: () => {
     loaderOptions?: {
       cssOptions?: any;
@@ -34,7 +31,7 @@ export interface IConfig {
       };
     };
   };
-  routes?: string[];
+  routes?: { [key: string]: string };
   chainBaseConfig: (config: Config) => Configuration;
   chainServerConfig: (config: Config) => Configuration;
   chainClientConfig: (config: Config) => Configuration;
@@ -44,8 +41,6 @@ export interface IConfig {
   cloudIDE?: boolean;
   cssModulesWhiteList: RegExp[];
   prefix?: string;
-  dynamic: boolean;
-  mode: string;
   webpackDevServerConfig?: any;
   stream: boolean;
   customeHeadScript?: Array<{

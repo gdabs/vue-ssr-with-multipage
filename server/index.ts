@@ -49,10 +49,11 @@ const startServer = async () => {
   await initialSSRDevProxy(app, defaultConfig);
 
   app.use(responseHandler());
-
-  routes.forEach((path: string) => {
+ 
+  Object.keys(routes).forEach((entry: string) => {
+    const path = routes[entry];
     router.get(path, async (ctx, next) => {
-      const stream = await render(ctx, defaultConfig);
+      const stream = await render(ctx, entry, defaultConfig);
       ctx.response.body = stream;
     });
   })

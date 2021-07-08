@@ -11,7 +11,6 @@ const mockFiles = mockEntrys.map(item => join(cwd, `./mock/${item}`));
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig();
 
-  const mode = 'ssr';
   const stream = false;
   type ClientLogLevel = 'error';
 
@@ -52,17 +51,12 @@ const loadConfig = (): IConfig => {
 
   const host = '0.0.0.0';
 
-  const chunkName = 'Page';
-
   const clientLogLevel: ClientLogLevel = 'error';
 
   const useHash = !isDev; // 生产环境默认生成hash
 
   const whiteList: RegExp[] = [];
 
-  const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`];
-
-  const cssOrder = [`${chunkName}.css`];
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息
@@ -74,8 +68,6 @@ const loadConfig = (): IConfig => {
     warnings: false,
     entrypoints: false,
   };
-
-  const dynamic = true;
 
   const corejs = false;
   const getOutput = () => ({
@@ -132,15 +124,10 @@ const loadConfig = (): IConfig => {
       moduleFileExtensions,
       fePort,
       serverPort,
-      chunkName,
-      jsOrder,
-      cssOrder,
       getOutput,
       webpackStatsOption,
       whiteList,
       cssModulesWhiteList,
-      dynamic,
-      mode,
       stream,
       corejs,
       https,

@@ -1,28 +1,32 @@
 import webpack from 'webpack';
 import { GenerateSW } from 'workbox-webpack-plugin';
-import { loadConfig } from '../utils/loadConfig';
+import { loadConfig, getEntry } from '../utils';
 import { getClientEnvironment } from '../utils/env';
 import * as WebpackChain from 'webpack-chain';
 import { getBaseConfig } from './base';
 
 const safePostCssParser = require('postcss-safe-parser');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS);
 const loadModule = require.resolve;
 
 const env = getClientEnvironment();
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig();
+  const { publicPath, isDev, getOutput, useHash, chainClientConfig } = loadConfig();
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP;
   const truePublicPath = isDev ? publicPath : `${publicPath}client/`;
   getBaseConfig(chain, false);
 
   chain.devtool(isDev ? 'cheap-module-source-map' : shouldUseSourceMap ? 'source-map' : false);
-  chain
-    .entry(chunkName)
-    .add(loadModule('../../src/entry/client-entry'))
+
+  const entry = getEntry('client');
+  const entries = Object.keys(entry);
+  entries.reduce((pre, chunkName) => {
+    return pre.entry(chunkName)
+    .add(loadModule(entry[chunkName]))
     .end()
+  }, chain)
     .output.path(getOutput().clientOutPut)
     .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
     .chunkFilename(
@@ -35,7 +39,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .runtimeChunk(true)
     .splitChunks({
       chunks: 'initial',
-      name: false,
+      name: true,
       cacheGroups: {
         vendors: {
           test: (module: any) => {
@@ -45,8 +49,15 @@ const getClientWebpack = (chain: WebpackChain) => {
               module.resource.match('node_modules')
             );
           },
+          minChunks: entries.length,
           name: 'vendor',
         },
+        default: {
+          minChunks: entries.length,
+          priority: -20,
+          name: 'vendor~default',
+          reuseExistingChunk: true
+        }
       },
     })
     .when(!isDev, optimization => {

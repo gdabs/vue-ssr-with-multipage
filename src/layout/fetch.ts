@@ -1,4 +1,7 @@
-export default async ({ store, router }): Promise<any> => {
-  // const data = await window.fetch(`/api/home`);
+import { Fetch } from '@/interface';
+// import request from '@/utils/request';
+const fetch: Fetch = async ({ store }, ctx) => {
+  // const { data } = await request.post({url: `/api/detail`});
   // await store.dispatch('indexStore/initialData', { payload: data });
 };
+export default fetch;

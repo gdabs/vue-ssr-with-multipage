@@ -1,6 +1,6 @@
 import { join } from 'path';
 import webpack from 'webpack';
-import { loadConfig, getClientEnvironment, nodeExternals } from '../utils';
+import { loadConfig, getClientEnvironment, nodeExternals, getEntry } from '../utils';
 import * as WebpackChain from 'webpack-chain';
 import { getBaseConfig } from './base';
 
@@ -10,15 +10,18 @@ const env = getClientEnvironment();
 
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig();
-  const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config;
+  const { isDev, cwd, getOutput, chainServerConfig, whiteList } = config;
 
   getBaseConfig(chain, true);
   chain.devtool(isDev ? 'eval-source-map' : false);
   chain.target('node');
-  chain
-    .entry(chunkName)
-    .add(loadModule('../../src/entry/server-entry'))
+
+  const entry = getEntry('server');
+  Object.keys(entry).reduce((pre, chunkName) => {
+    return pre.entry(chunkName)
+    .add(loadModule(entry[chunkName]))
     .end()
+  }, chain)
     .output.path(getOutput().serverOutPut)
     .filename('[name].server.js')
     .libraryTarget('commonjs')

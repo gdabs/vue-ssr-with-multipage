@@ -1,5 +1,6 @@
 import { resolve } from 'path';
-import { getCwd, StringToStream } from '../build/utils';
+import { StringToStream } from './buffer/string-stream';
+import { getCwd } from '../build/utils';
 import { getManifest } from './middleware/manifest'
 import { renderToStream, renderToString } from '@vue/server-renderer';
 import { ISSRContext, IConfig } from '@/interface';
@@ -7,10 +8,10 @@ import { ISSRContext, IConfig } from '@/interface';
 const mergeStream = require('merge-stream');
 const cwd = getCwd();
 
-async function render<T = string>(ctx: ISSRContext, config?: IConfig): Promise<T> {
-  const { isDev, chunkName, stream } = config;
+async function render<T = string>(ctx: ISSRContext,entry: string, config?: IConfig): Promise<T> {
+  const { isDev, stream } = config;
   const isLocal = isDev || process.env.NODE_ENV !== 'production';
-  const serverFile = resolve(cwd, `./dist/server/${chunkName}.server.js`);
+  const serverFile = resolve(cwd, `./dist/server/${entry}.server.js`);
   if (isLocal) {
     // clear cache in development environment
     delete require.cache[serverFile];
